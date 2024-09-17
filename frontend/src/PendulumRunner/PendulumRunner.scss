@@ -1,0 +1,41 @@
+.pendulum-runner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  .pendulum-card-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 32px;
+
+    label > span {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  .action-bars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+
+    .start-button:not(:disabled) {
+      background-color: rgb(4, 142, 4);
+    }
+    .pause-button:not(:disabled) {
+      background-color: rgb(231, 151, 3);
+    }
+    .reset-button:not(:disabled) {
+      background-color: rgb(208, 1, 1);
+    }
+  }
+
+  .previewer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

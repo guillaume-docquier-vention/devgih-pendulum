@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config
+data:
+  mosquitto.conf: |
+    # MQTT over TCP
+    listener 1883
+    protocol mqtt
+    allow_anonymous true
+
+    # MQTT over WebSocket
+    listener 30001
+    protocol websockets
+    allow_anonymous true

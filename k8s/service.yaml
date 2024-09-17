@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pendulum-app-service-1
+  namespace: default
+spec:
+  selector:
+    app: pendulum-app
+    instance: "1"
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pendulum-app-service-2
+  namespace: default
+spec:
+  selector:
+    app: pendulum-app
+    instance: "2"
+  ports:
+    - protocol: TCP
+      port: 3002
+      targetPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pendulum-app-service-3
+  namespace: default
+spec:
+  selector:
+    app: pendulum-app
+    instance: "3"
+  ports:
+    - protocol: TCP
+      port: 3003
+      targetPort: 3003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pendulum-app-service-4
+  namespace: default
+spec:
+  selector:
+    app: pendulum-app
+    instance: "4"
+  ports:
+    - protocol: TCP
+      port: 3004
+      targetPort: 3004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pendulum-app-service-5
+  namespace: default
+spec:
+  selector:
+    app: pendulum-app
+    instance: "5"
+  ports:
+    - protocol: TCP
+      port: 3005
+      targetPort: 3005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+  namespace: default
+spec:
+  ports:
+    - port: 1883
+      targetPort: 1883
+      protocol: TCP
+  selector:
+    app: mosquitto

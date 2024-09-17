@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "length": 5,
+    "initialAngle": -1,
+    "angle": null,
+    "url": "http://127.0.0.1:3001",
+    "color": "#4357AD",
+    "radius": 1
+  },
+  {
+    "id": 2,
+    "length": 5,
+    "initialAngle": -1,
+    "angle": null,
+    "url": "http://127.0.0.1:3002",
+    "color": "#48A9A6",
+    "radius": 1
+  },
+  {
+    "id": 3,
+    "length": 5,
+    "initialAngle": -1,
+    "angle": null,
+    "url": "http://127.0.0.1:3003",
+    "color": "#E4DFDA",
+    "radius": 1
+  },
+  {
+    "id": 4,
+    "length": 5,
+    "initialAngle": -1,
+    "angle": null,
+    "url": "http://127.0.0.1:3004",
+    "color": "#D4B483",
+    "radius": 1
+  },
+  {
+    "id": 5,
+    "length": 5,
+    "initialAngle": -1,
+    "angle": null,
+    "url": "http://127.0.0.1:3005",
+    "color": "#C1666B",
+    "radius": 1
+  }
+]

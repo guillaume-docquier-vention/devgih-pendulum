@@ -1,0 +1,196 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+        - name: mosquitto
+          image: eclipse-mosquitto:latest
+          ports:
+            - containerPort: 1883
+            - containerPort: 30001
+          volumeMounts:
+            - name: mosquitto-config
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+      volumes:
+        - name: mosquitto-config
+          configMap:
+            name: mosquitto-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pendulum-app-instance-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pendulum-app
+      instance: "1"
+  template:
+    metadata:
+      labels:
+        app: pendulum-app
+        instance: "1"
+    spec:
+      containers:
+        - name: pendulum-app
+          image: pendulum-app:latest
+          env:
+            - name: PORT
+              value: "3001"
+            - name: NEIGHBOR
+              value: "pendulum-app-service-2:3002"
+          ports:
+            - containerPort: 3001
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pendulum-app-instance-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pendulum-app
+      instance: "2"
+  template:
+    metadata:
+      labels:
+        app: pendulum-app
+        instance: "2"
+    spec:
+      containers:
+        - name: pendulum-app
+          image: pendulum-app:latest
+          env:
+            - name: PORT
+              value: "3002"
+            - name: NEIGHBOR
+              value: "pendulum-app-service-3:3003"
+          ports:
+            - containerPort: 3002
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pendulum-app-instance-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pendulum-app
+      instance: "3"
+  template:
+    metadata:
+      labels:
+        app: pendulum-app
+        instance: "3"
+    spec:
+      containers:
+        - name: pendulum-app
+          image: pendulum-app:latest
+          env:
+            - name: PORT
+              value: "3003"
+            - name: NEIGHBOR
+              value: "pendulum-app-service-4:3004"
+          ports:
+            - containerPort: 3003
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pendulum-app-instance-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pendulum-app
+      instance: "4"
+  template:
+    metadata:
+      labels:
+        app: pendulum-app
+        instance: "4"
+    spec:
+      containers:
+        - name: pendulum-app
+          image: pendulum-app:latest
+          env:
+            - name: PORT
+              value: "3004"
+            - name: NEIGHBOR
+              value: "pendulum-app-service-5:3005"
+          ports:
+            - containerPort: 3004
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pendulum-app-instance-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pendulum-app
+      instance: "5"
+  template:
+    metadata:
+      labels:
+        app: pendulum-app
+        instance: "5"
+    spec:
+      containers:
+        - name: pendulum-app
+          image: pendulum-app:latest
+          env:
+            - name: PORT
+              value: "3005"
+          ports:
+            - containerPort: 3005
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"

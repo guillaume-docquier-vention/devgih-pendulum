@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "*.ts",
+    "handlers/messageHandler.ts",
+    "models/models.ts",
+    "messaging/mqttClient.ts",
+    "pendulum/pendulum.ts"
+  ],
+  "exclude": ["node_modules"]
+}

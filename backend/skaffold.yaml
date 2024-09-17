@@ -1,0 +1,44 @@
+apiVersion: skaffold/v2beta22
+kind: Config
+metadata:
+  name: pendulum-app
+build:
+  artifacts:
+    - image: pendulum-app
+      sync:
+        manual:
+          - dest: /frontend
+            src: "/frontend/**"
+deploy:
+  kubectl:
+    manifests:
+      - ../k8s/mosquitto.configmap.yaml
+      - ../k8s/deployment.yaml
+      - ../k8s/service.yaml
+profiles:
+  - name: port-forwarding
+    portForward:
+      - resourceType: deployment
+        resourceName: pendulum-app-instance-1
+        port: 3001
+        localPort: 3001
+      - resourceType: deployment
+        resourceName: pendulum-app-instance-2
+        port: 3002
+        localPort: 3002
+      - resourceType: deployment
+        resourceName: pendulum-app-instance-3
+        port: 3003
+        localPort: 3003
+      - resourceType: deployment
+        resourceName: pendulum-app-instance-4
+        port: 3004
+        localPort: 3004
+      - resourceType: deployment
+        resourceName: pendulum-app-instance-5
+        port: 3005
+        localPort: 3005
+      - resourceType: deployment
+        resourceName: mosquitto
+        port: 30001
+        localPort: 30001
