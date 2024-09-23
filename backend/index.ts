@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { Pendulum } from "./pendulum/pendulum";
-import { PendulumConfig } from "./models/pendulumConfig";
 
 dotenv.config();
 
@@ -13,8 +12,7 @@ const pendulum = Pendulum.getInstance();
 app.use(express.json(), cors());
 
 app.post("/configure", (req, res) => {
-  const config: PendulumConfig = req.body;
-  pendulum.configure(config);
+  pendulum.configure(req.body);
   res.sendStatus(200);
 });
 
