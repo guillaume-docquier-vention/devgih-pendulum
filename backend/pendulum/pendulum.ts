@@ -9,6 +9,7 @@ import {
   PENDULUM_RADIUS,
   PENDULUM_TIME_STEP,
 } from "../constants";
+import { PendulumConfig } from '../models/pendulumConfig'
 
 export class Pendulum {
   private static instance: Pendulum | null = null;
@@ -17,8 +18,10 @@ export class Pendulum {
   private currentAngle: number;
   private intervalId?: NodeJS.Timeout;
 
-  private constructor() {
-    // TODO Initialize pendulum state
+  private constructor(initialConfig: PendulumConfig) {
+    this.initialAngle = initialConfig.angle;
+    this.currentAngle = 0;
+    this.length = initialConfig.length;
   }
 
   /**
@@ -26,16 +29,27 @@ export class Pendulum {
    * @param initialConfig Initial configuration for the pendulum.
    * @returns The singleton instance of the Pendulum.
    */
-  public static getInstance(): Pendulum {
-    // TODO Initialize pendulum state
+  public static getInstance(
+    initialConfig: PendulumConfig = {
+      angle: 0,
+      length: PENDULUM_DEFAULT_LENGTH,
+    }
+  ): Pendulum {
+    if (!Pendulum.instance) {
+      Pendulum.instance = new Pendulum(initialConfig);
+    }
+    return Pendulum.instance;
   }
 
   /**
    * Configures the pendulum with new parameters and starts calculations.
    * @param config The new configuration for the pendulum.
    */
-  public configure(config: Record<string, unknown>): void {
-    // TODO Implement pendulum configuration
+  public configure(config: PendulumConfig): void {
+    this.initialAngle = config.angle ?? this.initialAngle;
+    this.currentAngle = this.initialAngle;
+    this.length = config.length ?? this.length;
+    this.startCalculations();
   }
 
   /**
@@ -138,7 +152,7 @@ export class Pendulum {
    * Retrieves the status of the neighboring pendulum from an external service.
    * @returns The status of the neighboring pendulum or null if no status is available.
    */
-  private async getNeighborStatus(): Promise<Record<string, unknown> | null> {
+  private async getNeighborStatus(): Promise<PendulumConfig | null> {
     const neighbor = process.env.NEIGHBOR;
     if (neighbor) {
       try {
@@ -156,7 +170,10 @@ export class Pendulum {
    * Gets the current status of the pendulum.
    * @returns An object containing the current angle, length, and mass of the pendulum.
    */
-  public getStatus(): Record<string, unknown> {
-    // TODO Implement getStatus
+  public getStatus(): PendulumConfig {
+    return {
+      angle: this.currentAngle,
+      length: this.length,
+    };
   }
 }
