@@ -1,5 +1,6 @@
 import mqtt from "mqtt";
 import dotenv from "dotenv";
+import { handleMessage } from "../handlers/messageHandler";
 
 dotenv.config();
 
@@ -22,8 +23,22 @@ client.on("error", (err) => {
   console.error("MQTT Client Error:", err);
 });
 
-client.on("message", (topic, message) => {
-  // TODO handle mqtt messages
+client.on("message", (topic, message) => { w
+  if (topic === mqttBrokerTopic) {
+    switch (message.toString()) {
+      case "STOP":
+        handleMessage("STOP");
+        break;
+      case "PAUSE":
+        handleMessage("PAUSE");
+        break;
+      case "RESUME":
+        handleMessage("RESUME");
+        break;
+      default:
+        break;
+    }
+  }
 });
 
 export const publishMessage = (topic: string, message: string) => {
